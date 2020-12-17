@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/redmond/jquery-ui.css">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js"></script>
+        
+    </head>
+    <body>
+        <form name="form1" method="POST">
+<h2>
+    <left>
+        Fill the form
+    </left>
+
+</h2>
+            CreditCardNumber: <input type="text" name="creditcardnumber" maxlength="16" required><br><br>
+            CardHolder : <input name="cardholder" onkeypress="return /[a-z]/i.test(event.key)" required><br><br>
+            ExpirationDate : <input name="expirationdate" id="txtstartdate" required>      Enter Future date<br><br>
+            SecurityCode: <input type="text" name="securitycode" maxlength="3" required>       Enter 3 digit Security Code<br><br>
+            Amount  :<input type="text" name="amount" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" /> (In Euros)<br><br>
+            <input type="submit" value="Submit"><br><br>
+        </form>
+    </body>
+    <script>
+        $("#txtstartdate").datepicker({
+        minDate: 0,
+        onSelect: function(date) 
+        {
+        $("#txtenddate").datepicker('option', 'minDate', date);
+        }
+        });
+        function alphaOnly(event) 
+        {
+        var key = event.keyCode;
+        return ((key >= 65 && key <= 90 ) || key == 8 );
+        };
+        
+        function isNumber(evt) 
+        {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) 
+        {
+            return false;
+        }
+            return true;
+        }
+
+        function cardnumber(inputtxt)
+        {
+            alert("inputext",inputtxt);
+            var cardno = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+            if(inputtxt.value.match(cardno))
+            {
+                return true;
+            }
+            else
+            {
+                alert("Not a valid Visa credit card number!");
+                return false;
+            }
+        }
+        //----
+        // console.log(IsValidCreditCardNumber('5500 0100 0000 0004'));
+    </script>
+</html>
